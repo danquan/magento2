@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Dự báo thời tiết quốc tế</title>
+        <css src="Vendor_Weather::css/weather.css"/>
+    </head>
+
+    <body>
+        <referenceContainer name="content">
+            <block class="Quygento\Weather\Block\Weather" name="quygento_weather_block" template="Quygento_Weather::weather.phtml" />
+        </referenceContainer>
+    </body>
+</page>
