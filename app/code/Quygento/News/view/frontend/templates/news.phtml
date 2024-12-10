@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @var \Quygento\News\Block\News $block
+ */
+$news = $block->getNews()['channel']['item'];
+?>
+
+<h1 class="module-title">Bản tin kinh doanh</h1>
+
+<?php foreach($news as $new): ?>
+    <div class="new">
+        <h2><?php echo $new['title'] ?></h2>
+        <p><?php echo $new['pubDate'] ?></p>
+        <?php echo $new['description']?>
+        <a href="<?php echo $new['link']?>">Xem thêm</a>
+    </div>
+<?php endforeach ?>
