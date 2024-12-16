@@ -1,0 +1,14 @@
+.module-title {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.new {
+    margin: 0 auto;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    max-width: 1000px;
+}
+.new img {
+    width: 1000px;
+}
