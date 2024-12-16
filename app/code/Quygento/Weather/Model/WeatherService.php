@@ -30,7 +30,7 @@ class WeatherService {
 
     public function fetchWeather($lat, $lon) {
         $apiKey = $this->helper->getApiKey();
-        $url = "https://api.openweathermap.org/data/2.5/weather?lat={$lat}&lon={$lon}&appid={$apiKey}";
+        $url = "https://api.openweathermap.org/data/2.5/weather?lat={$lat}&lon={$lon}&appid={$apiKey}&units=metric";
      
         $response = file_get_contents($url);
         return json_decode($response, true);
