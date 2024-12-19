@@ -75,6 +75,7 @@
         "magento/zend-cache": "^1.16",
         "magento/zend-db": "^1.16",
         "magento/zend-pdf": "^1.16",
+        "mageplaza/magento-2-vietnamese-language-pack": "dev-master",
         "monolog/monolog": "^2.7",
         "opensearch-project/opensearch-php": "^1.0 || ^2.0, <2.0.1",
         "pelago/emogrifier": "^7.0",
@@ -394,4 +395,3 @@
         }
     }
 }
-
