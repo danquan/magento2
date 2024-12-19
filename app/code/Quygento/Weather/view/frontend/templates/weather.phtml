@@ -5,7 +5,7 @@ $cities = $block->getCities();                     // Danh sách thành phố
 ?>
 
 <div class="weather-form">
-    <form action="<?= $block->getUrl('weather/weather/world') ?>" method="post">
+    <form action="<?= $block->getUrl('weather') ?>" method="post">
         <label for="city">Choose a city:</label>
         <select name="city" id="city">
             <?php foreach ($cities as $city): ?>

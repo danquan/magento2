@@ -1,13 +1,13 @@
 <?php
 
-namespace Quygento\Weather\Controller\Weather;
+namespace Quygento\Weather\Controller\Index;
 
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 
 use Quygento\Weather\Model\WeatherService;
 
-class World extends \Magento\Framework\App\Action\Action {
+class Index extends \Magento\Framework\App\Action\Action {
 
     public function execute() {
         $city = $this->getRequest()->getPost('city', 'Hà Nội'); 
