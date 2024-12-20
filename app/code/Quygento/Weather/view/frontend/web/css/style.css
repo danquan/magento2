@@ -11,8 +11,8 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.weather-widget select,
-.weather-widget button {
+.weather-form select,
+.weather-form button {
     margin-top: 10px;
     padding: 8px;
     font-size: 14px;
@@ -21,15 +21,23 @@
     outline: none;
 }
 
-.weather-widget button {
+.weather-form button {
     background-color: #ff66cc;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.weather-widget button:hover {
+.weather-form button:hover {
     background-color: #ff33aa;
+}
+
+.loading-message {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 15px;
+    text-align: center;
 }
 
 .weather-card {

@@ -11,7 +11,11 @@
         <button type="button" id="get-weather-btn">Get Weather</button>
     </div>
 
-    <div id="weather-info" class="weather-info">
+    <div id="loading" class="loading-message" style="display: none;">
+        Loading weather information...
+    </div>
+
+    <div id="weather-info" class="weather-info" style="display: none;">
         <div class="weather-card">
             <div class="weather-icon">
                 <img src="" alt="Weather Icon" id="weather-icon">
@@ -32,6 +36,10 @@
         $(document).ready(function() {
             // Hàm gọi Ajax lấy thời tiết
             function loadWeather(city) {
+                // Hiển thị "loading" và ẩn thông tin thời tiết
+                $('#loading').show();
+                $('#weather-info').hide();
+
                 $.ajax({
                     url: '<?= $block->getAjaxUrl() ?>',
                     type: 'POST',
@@ -39,17 +47,25 @@
                     success: function(response) {
                         if (response.success) {
                             var weather = response.data;
+
+                            // Cập nhật thông tin thời tiết
                             $('#temp').text(Math.round(weather.main.temp - 273.15));
                             $('#temp-max').text(Math.round(weather.main.temp_max - 273.15));
                             $('#temp-min').text(Math.round(weather.main.temp_min - 273.15));
                             $('#location').text(weather.name);
                             $('#weather-icon').attr('src', 'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png');
+
+                            // Hiển thị thông tin thời tiết và ẩn "loading"
+                            $('#loading').hide();
+                            $('#weather-info').show();
                         } else {
-                            $('#weather-info').html('<p>' + response.message + '</p>');
+                            $('#loading').hide();
+                            alert(response.message);
                         }
                     },
                     error: function() {
-                        $('#weather-info').html('<p>Unable to fetch weather data. Please try again.</p>');
+                        $('#loading').hide();
+                        alert('Unable to fetch weather data. Please try again.');
                     }
                 });
             }
