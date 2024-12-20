@@ -1,29 +1,68 @@
-<?php
-$selectedCity = $block->getData('city') ?? 'Hà Nội'; // Lấy thành phố từ block
-$weather = $block->getWeatherData($selectedCity);   // Lấy thông tin thời tiết
-$cities = $block->getCities();                     // Danh sách thành phố
-?>
-
-<div class="weather-form">
-    <form action="<?= $block->getUrl('weather') ?>" method="post">
+<div class="weather-widget">
+    <div class="weather-form">
         <label for="city">Choose a city:</label>
         <select name="city" id="city">
-            <?php foreach ($cities as $city): ?>
-                <option value="<?= $city ?>" <?= $city === $selectedCity ? 'selected' : '' ?>>
-                    <?= $city ?>
+            <?php foreach ($block->getCities() as $city): ?>
+                <option value="<?= htmlspecialchars($city) ?>" <?= $city === 'Hà Nội' ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($city) ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        <button type="submit">Get Weather</button>
-    </form>
+        <button type="button" id="get-weather-btn">Get Weather</button>
+    </div>
+
+    <div id="weather-info" class="weather-info">
+        <div class="weather-card">
+            <div class="weather-icon">
+                <img src="" alt="Weather Icon" id="weather-icon">
+            </div>
+            <div class="weather-temp">
+                <span id="temp">--</span>°
+            </div>
+            <div class="weather-range">
+                <span id="temp-max">--</span> / <span id="temp-min">--</span> °
+            </div>
+            <div class="weather-location" id="location">Loading...</div>
+        </div>
+    </div>
 </div>
 
-<?php if ($weather): ?>
-    <div class="weather-info">
-        <h2>Weather in <?= htmlspecialchars($weather['name']) ?></h2>
-        <p>Temperature: <?= htmlspecialchars($weather['main']['temp']) ?> °C</p>
-        <p>Condition: <?= htmlspecialchars($weather['weather'][0]['description']) ?></p>
-    </div>
-<?php else: ?>
-    <p>Unable to fetch weather data. Please check your API key or try another city.</p>
-<?php endif; ?>
+<script>
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            // Hàm gọi Ajax lấy thời tiết
+            function loadWeather(city) {
+                $.ajax({
+                    url: '<?= $block->getAjaxUrl() ?>',
+                    type: 'POST',
+                    data: { city: city },
+                    success: function(response) {
+                        if (response.success) {
+                            var weather = response.data;
+                            $('#temp').text(Math.round(weather.main.temp - 273.15));
+                            $('#temp-max').text(Math.round(weather.main.temp_max - 273.15));
+                            $('#temp-min').text(Math.round(weather.main.temp_min - 273.15));
+                            $('#location').text(weather.name);
+                            $('#weather-icon').attr('src', 'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png');
+                        } else {
+                            $('#weather-info').html('<p>' + response.message + '</p>');
+                        }
+                    },
+                    error: function() {
+                        $('#weather-info').html('<p>Unable to fetch weather data. Please try again.</p>');
+                    }
+                });
+            }
+
+            // Tự động tải thời tiết của Hà Nội khi load trang
+            var defaultCity = 'Hà Nội';
+            loadWeather(defaultCity);
+
+            // Tải thời tiết khi người dùng chọn thành phố
+            $('#get-weather-btn').on('click', function() {
+                var selectedCity = $('#city').val();
+                loadWeather(selectedCity);
+            });
+        });
+    });
+</script>
