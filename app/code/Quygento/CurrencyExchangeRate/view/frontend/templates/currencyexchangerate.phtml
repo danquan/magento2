@@ -5,23 +5,94 @@
  */
 $currencies = $block->getCurrencyExchangeRate()['Exrate'];
 ?>
-<h2>Tỉ giá tiền tệ</h2>
-<table>
-    <tr>
-        <th>Tên ngoại tệ</th>
-        <th class="currency-code">Mã ngoại tệ</th>
-        <th>Giá mua bằng tiền mặt</th>
-        <th>Giá mua qua chuyển khoản</th>
-        <th>Giá bán</th>
-    </tr>
-    <?php foreach($currencies as $currency): ?>
-        <?php $currency = $currency['@attributes']?>
+<h2 class="currency-title">Tỉ giá tiền tệ</h2>
+<table class="currency-table">
+    <thead>
         <tr>
-            <td><?php echo $currency['CurrencyName']?></td>
-            <td class="currency-code"><?php echo $currency['CurrencyCode']?>&nbsp&nbsp&nbsp<div class="currency-flag currency-flag-<?php echo strtolower($currency['CurrencyCode']); ?>"></div></td>
-            <td><?php echo $currency['Buy']?></td>
-            <td><?php echo $currency['Transfer']?></td>
-            <td><?php echo $currency['Sell']?></td>
+            <th>Tên ngoại tệ</th>
+            <th class="currency-code">Mã ngoại tệ</th>
+            <th>Giá mua bằng tiền mặt</th>
+            <th>Giá mua qua chuyển khoản</th>
+            <th>Giá bán</th>
         </tr>
-    <?php endforeach ?>
+    </thead>
+    <tbody>
+        <?php foreach ($currencies as $currency): ?>
+            <?php $currency = $currency['@attributes'] ?>
+            <tr>
+                <td><?php echo $currency['CurrencyName'] ?></td>
+                <td class="currency-code">
+                    <?php echo $currency['CurrencyCode'] ?>
+                    <div class="currency-flag currency-flag-<?php echo strtolower($currency['CurrencyCode']); ?>"></div>
+                </td>
+                <td><?php echo $currency['Buy'] ?></td>
+                <td><?php echo $currency['Transfer'] ?></td>
+                <td><?php echo $currency['Sell'] ?></td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
 </table>
+
+<style>
+    .currency-title {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .currency-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+        text-align: left;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .currency-table th, .currency-table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+    }
+
+    .currency-table th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .currency-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .currency-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .currency-code {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .currency-flag {
+        width: 20px;
+        height: 15px;
+        background-size: cover;
+        border: 1px solid #ddd;
+    }
+
+    /* Ví dụ: CSS để thêm cờ cho một số quốc gia */
+    .currency-flag-usd {
+        background-image: url('https://flagcdn.com/w40/us.png'); /* Cờ Mỹ */
+    }
+
+    .currency-flag-eur {
+        background-image: url('https://flagcdn.com/w40/eu.png'); /* Cờ EU */
+    }
+
+    .currency-flag-vnd {
+        background-image: url('https://flagcdn.com/w40/vn.png'); /* Cờ Việt Nam */
+    }
+</style>
